@@ -3,8 +3,7 @@
 OSK="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
 VMDIR=$PWD
 OVMF=$VMDIR/firmware
-#export QEMU_AUDIO_DRV=pa
-#QEMU_AUDIO_DRV=pa
+QEMU_AUDIO_DRV=pa
 
 qemu-system-x86_64 \
     -nodefaults \
