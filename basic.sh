@@ -16,7 +16,7 @@ qemu-system-x86_64 \
     -smbios type=2 \
     -drive if=pflash,format=raw,readonly,file="$OVMF/OVMF_CODE.fd" \
     -drive if=pflash,format=raw,file="$OVMF/OVMF_VARS-1024x768.fd" \
-    -vga qxl \
+    -vga std \
     -device ich9-intel-hda -device hda-output \
     -usb -device usb-kbd -device usb-mouse \
     -netdev user,id=net0 \
