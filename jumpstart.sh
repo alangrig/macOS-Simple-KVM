@@ -12,6 +12,10 @@ print_usage() {
     echo " -s, --high-sierra   Fetch High Sierra media."
     echo " -m, --mojave        Fetch Mojave media."
     echo " -c, --catalina      Fetch Catalina media."
+    echo " -v, --ventura       Fetch Ventura media."
+
+    echo " -n, --sonoma        Fetch Sonoma media."
+
     echo
 }
 
@@ -31,9 +35,22 @@ case $argument in
     -m|--mojave)
         "$TOOLS/FetchMacOS/fetch.sh" -v 10.14 || exit 1;
         ;;
-    -c|--catalina|*)
+    -c|--catalina)
         "$TOOLS/FetchMacOS/fetch.sh" -v 10.15 || exit 1;
         ;;
+
+
+    -v|--ventura|*)
+        "$TOOLS/FetchMacOS/fetch.sh" -v 13.6 || exit 1;
+        ;;
+
+    -n|--sonoma|*)
+        "$TOOLS/FetchMacOS/fetch.sh" -v 14.0 || exit 1;
+        ;;
+
+
+
+
 esac
 
 "$TOOLS/dmg2img" "$TOOLS/FetchMacOS/BaseSystem/BaseSystem.dmg" "$PWD/BaseSystem.img"

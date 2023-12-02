@@ -66,6 +66,15 @@ class Filesystem:
 class SoftwareService:
     # macOS 10.15 is available in 4 different catalogs from SoftwareScan
     catalogs = {
+                "14.0": {
+                    "PublicRelease":"https://swscan.apple.com/content/catalogs/others/index-14seed-14-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
+                        },
+
+                "13.6": {
+                       "PublicRelease":"https://swscan.apple.com/content/catalogs/others/index-13seed-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
+                        },
+
+
                 "10.15": {
                     "CustomerSeed":"https://swscan.apple.com/content/catalogs/others/index-10.15customerseed-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
                     "DeveloperSeed":"https://swscan.apple.com/content/catalogs/others/index-10.15seed-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
@@ -98,15 +107,19 @@ class SoftwareService:
         products = root['Products']
         for product in products:
             if products.get(product, {}).get('ExtendedMetaInfo', {}).get('InstallAssistantPackageIdentifiers', {}).get('OSInstall', {}) == 'com.apple.mpkg.OSInstall':
+                print(product)
                 ospackages.append(product)
                 
         # Iterate for an specific version
         candidates = []
         for product in ospackages:
             meta_url = products.get(product, {}).get('ServerMetadataURL', {})
+            print(meta_url)
             if self.version in Filesystem.parse_plist(Filesystem.fetch_plist(meta_url)).get('CFBundleShortVersionString', {}):
+#            if self.version in Filesystem.parse_plist(Filesystem.fetch_plist(meta_url)).get('string', {}):
+               # print(product)
                 candidates.append(product)
-        
+        print(candidates)       
         return candidates
 
 
@@ -133,7 +146,7 @@ class MacOSProduct:
 @click.option('-v', '--catalog-version', default="10.15", help="Version of catalog.")
 @click.option('-c', '--catalog-id', default="PublicRelease", help="Name of catalog.")
 @click.option('-p', '--product-id', default="", help="Product ID (as seen in SoftwareUpdate).")
-def fetchmacos(output_dir="BaseSystem/", catalog_version="10.15", catalog_id="PublicRelease", product_id=""):
+def fetchmacos(output_dir="BaseSystem/", catalog_version="14.1.2", catalog_id="PublicRelease", product_id=""):
     # Get the remote catalog data
     remote = SoftwareService(catalog_version, catalog_id)
     catalog = remote.getcatalog()
