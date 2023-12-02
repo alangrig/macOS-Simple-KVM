@@ -12,9 +12,8 @@ print_usage() {
     echo " -s, --high-sierra   Fetch High Sierra media."
     echo " -m, --mojave        Fetch Mojave media."
     echo " -c, --catalina      Fetch Catalina media."
-    echo " -v, --ventura       Fetch Ventura media."
-
-    echo " -n, --sonoma        Fetch Sonoma media."
+   # echo " -v, --ventura       Fetch Ventura media."
+   # echo " -n, --sonoma        Fetch Sonoma media."
 
     echo
 }
@@ -39,7 +38,7 @@ case $argument in
         "$TOOLS/FetchMacOS/fetch.sh" -v 10.15 || exit 1;
         ;;
 
-
+# Does not work yet
     -v|--ventura|*)
         "$TOOLS/FetchMacOS/fetch.sh" -v 13.6 || exit 1;
         ;;
